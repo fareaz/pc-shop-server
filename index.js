@@ -129,16 +129,12 @@ async function run() {
     // });
 
     console.log("Connected to MongoDB and routes are configured.");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
+  } finally{
+    // await client.close
   }
 }
 
-run().catch((err) => {
-  console.error("run() error:", err);
-  process.exit(1);
-});
+run().catch(console.dir);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
