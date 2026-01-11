@@ -11,7 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB URI (from env)
-const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.5rsc2du.mongodb.net/?appName=Cluster0`;
+
+const user = process.env.USER_NAME || '';
+const pass = encodeURIComponent((process.env.USER_PASS || '').trim());
+const uri = `mongodb+srv://${user}:${pass}@cluster0.5rsc2du.mongodb.net/?appName=Cluster0`;
 
 // Mongo client setup
 const client = new MongoClient(uri, {
@@ -24,7 +27,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     const db = client.db("pc_store_db");
     const productCollection = db.collection("product");
 
